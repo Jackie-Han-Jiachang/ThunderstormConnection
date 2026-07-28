@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#14384a">
+    <title>《雷雨》人物关系网</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header class="app-header">
+    <div>
+        <p class="eyebrow">曹禺 ·《雷雨》</p>
+        <h1>人物关系演绎台</h1>
+    </div>
+    <p class="header-note">用事件观察人物之间的靠近与疏离</p>
+</header>
+
+<main class="workspace" aria-busy="true">
+    <section class="panel graph-panel" aria-labelledby="graph-title">
+        <div class="panel-heading">
+            <div>
+                <p class="section-number">01</p>
+                <h2 id="graph-title">角色关系网</h2>
+            </div>
+            <div class="legend" aria-label="关系图图例">
+                <span><i class="legend-line positive"></i>好感</span>
+                <span><i class="legend-line negative"></i>疏离</span>
+            </div>
+        </div>
+        <div id="graph" class="graph" role="img" aria-label="角色关系图">
+            <svg aria-hidden="true"></svg>
+            <div id="graph-empty" class="empty-state">
+                <span class="empty-symbol">关系</span>
+                <strong>舞台尚未开场</strong>
+                <p>执行第一个事件后，这里将生成角色关系网。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel occurred-panel" aria-labelledby="occurred-title">
+        <div class="panel-heading">
+            <div>
+                <p class="section-number">02</p>
+                <h2 id="occurred-title">已发生事件</h2>
+            </div>
+            <span id="occurred-count" class="count">0</span>
+        </div>
+        <p class="panel-description">台上的事件会改变人物关系。</p>
+        <div id="occurred-list" class="event-list" aria-live="polite"></div>
+    </section>
+
+    <section class="panel prepared-panel" aria-labelledby="prepared-title">
+        <div class="prepared-heading">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-number">03</p>
+                    <h2 id="prepared-title">预备事件</h2>
+                </div>
+                <span id="prepared-count" class="count">0</span>
+            </div>
+            <div>
+                <p class="panel-description">先整理事件，再把它放上舞台。</p>
+                <button id="create-event" class="button button-primary" type="button">
+                    <span aria-hidden="true">＋</span> 创建新事件
+                </button>
+            </div>
+        </div>
+        <div id="prepared-list" class="event-list event-list-horizontal" aria-live="polite"></div>
+    </section>
+</main>
+
+<dialog id="event-dialog" aria-labelledby="dialog-title">
+    <form id="event-form" novalidate>
+        <div class="dialog-heading">
+            <div>
+                <p class="eyebrow">EVENT CARD</p>
+                <h2 id="dialog-title">创建新事件</h2>
+            </div>
+            <button id="close-dialog" class="icon-button" type="button" aria-label="关闭">×</button>
+        </div>
+        <input id="event-id" type="hidden">
+        <label>
+            <span>事件名称 <b>*</b></span>
+            <input id="event-name" name="name" maxlength="30" autocomplete="off" required
+                   placeholder="例如：花园相遇">
+            <small class="field-error" data-error-for="name"></small>
+        </label>
+        <label>
+            <span>事件描述 <b>*</b></span>
+            <textarea id="event-description" name="description" maxlength="50" rows="3" required
+                      placeholder="用不超过 50 个字概括事件"></textarea>
+            <span class="field-meta"><small class="field-error" data-error-for="description"></small><output id="description-count">0 / 50</output></span>
+        </label>
+        <div class="form-grid">
+            <label>
+                <span>发起人 <b>*</b></span>
+                <select id="event-initiator" name="initiator" required>
+                    <option value="">请选择</option>
+                </select>
+                <small class="field-error" data-error-for="initiator"></small>
+            </label>
+            <label>
+                <span>好感度变化 <b>*</b></span>
+                <span class="range-row">
+                    <input id="event-affection" name="affectionDelta" type="range" min="-10" max="10" step="1" value="0">
+                    <output id="affection-value" class="score-badge neutral">0</output>
+                </span>
+            </label>
+        </div>
+        <fieldset>
+            <legend>被影响人 <b>*</b> <small>可多选</small></legend>
+            <div id="affected-options" class="character-options"></div>
+            <small class="field-error" data-error-for="affectedCharacters"></small>
+        </fieldset>
+        <div id="form-error" class="form-error" role="alert"></div>
+        <div class="dialog-actions">
+            <button id="cancel-event" class="button button-quiet" type="button">取消</button>
+            <button class="button button-primary" type="submit">保存到预备事件</button>
+        </div>
+    </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

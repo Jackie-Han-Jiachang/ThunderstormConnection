@@ -17,9 +17,21 @@ Read the Mock-ups.pdf for reference to design the GUI. Following list shows deta
 
 3. There should be two areas that can store the event cards. One is the "packet" that stores the events created by the user. The other one is the "stage" area where the events inside will affect the relationship in the web.
 
+4. The list of people that can be selected by the users:
+    - 周繁漪
+    - 鲁贵
+    - 鲁侍萍
+    - 鲁四凤
+    - 鲁大海
+    - 周浦园
+    - 周萍
+    - 周冲
+
+
 ## Tech Stack
 
 1. Use MVC design to arrange the directories and to design the project.
-2. Use java and javascript mainly to write the program.
+2. Use java and javascript mainly to write the program. However, use css or other proper tool to make the interface appealing.
 3. The deployment should be a .jar file. Make sure this jar file is usable on both mac and windows.
 4. Created relations and event cards should be stored locally.
+5. The application should be able to run offline.
